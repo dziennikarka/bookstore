@@ -1,11 +1,24 @@
 package com.example.bookstore.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Book {
+	@Id
+	private String isbn;
 	private String author;
 	private String title;
 	private int year;
-	private String isbn;
 	private double price;
+	
+	protected Book() {
+		this.isbn = null;
+		this.author = null;
+		this.title = null;
+		this.year = 0;
+		this.price = 0.0;
+	}
 	
 	public Book(String author, String title, int year, String isbn, double price) {
 		this.author = author;
