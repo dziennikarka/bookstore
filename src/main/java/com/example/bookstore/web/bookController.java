@@ -33,7 +33,7 @@ public class bookController {
 	}
 
 	//Add new book
-	@RequestMapping(value="/add")
+	@RequestMapping(value="/addbook", method = RequestMethod.GET)
 	public String addBook(Model model){
 		model.addAttribute("book",new Book());
 		return "addbook";
