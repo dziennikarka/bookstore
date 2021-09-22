@@ -45,4 +45,11 @@ public class bookController {
 		repository.save(book);
 		return "redirect:/booklist";
 	}
+
+	//editing book
+	@RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
+	public String editBook(@PathVariable("id") String isbn, Model model){
+		model.addAttribute("book", repository.findById(isbn));
+		return "addbook";
+	}
 }
