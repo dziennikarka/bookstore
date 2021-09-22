@@ -12,7 +12,7 @@ public class Book {
 	private int year;
 	private double price;
 	
-	protected Book() {
+	public Book() {
 		this.isbn = null;
 		this.author = null;
 		this.title = null;

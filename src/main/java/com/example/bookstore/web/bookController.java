@@ -1,6 +1,6 @@
 package com.example.bookstore.web;
 
-
+import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +29,20 @@ public class bookController {
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") String isbn, Model model){
 		repository.deleteById(isbn);
+		return "redirect:/booklist";
+	}
+
+	//Add new book
+	@RequestMapping(value="/add")
+	public String addBook(Model model){
+		model.addAttribute("book",new Book());
+		return "addbook";
+	}
+
+	//Save book
+	@RequestMapping(value="/save", method = RequestMethod.POST)
+	public String saveBook(Book book){
+		repository.save(book);
 		return "redirect:/booklist";
 	}
 }
