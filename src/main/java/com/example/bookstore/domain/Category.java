@@ -1,48 +1,59 @@
 package com.example.bookstore.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Category {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    private Long categoryId;
     private String name;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    private List<Book> books;
 
     public Category() {
-        this.id = null;
+        this.categoryId = null;
         this.name = null;
+        this.books = new ArrayList<>();
 
     }
 
     public Category(String name) {
-        this.id = null;
+        this.categoryId = null;
         this.name = name;
+        this.books = new ArrayList<>();
     }
 
     public Long getId() {
-        return id;
+        return categoryId;
     }
 
     public String getName() {
         return name;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
     public void setId(Long id) {
-        this.id = id;
+        this.categoryId = id;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
-                "id=" + id +
+                "id=" + categoryId +
                 ", name='" + name + '\'' +
                 '}';
     }

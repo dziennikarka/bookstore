@@ -2,6 +2,8 @@ package com.example.bookstore.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Book {
@@ -11,6 +13,9 @@ public class Book {
 	private String title;
 	private int year;
 	private double price;
+	@ManyToOne
+	@JoinColumn(name="categoryId")
+	private Category category;
 	
 	public Book() {
 		this.isbn = null;
@@ -18,22 +23,25 @@ public class Book {
 		this.title = null;
 		this.year = 0;
 		this.price = 0.0;
+		this.category = null;
 	}
 	
-	public Book(String author, String title, int year, String isbn, double price) {
+	public Book(String author, String title, int year, String isbn, double price, Category category) {
 		this.author = author;
 		this.title = title;
 		this.year = year;
 		this.isbn = isbn;
 		this.price = price;
+		this.category = category;
 	}
 	
-	public Book(String author, String title, int year, String isbn) {
+	public Book(String author, String title, int year, String isbn, Category category) {
 		this.author = author;
 		this.title = title;
 		this.year = year;
 		this.isbn = isbn;
 		this.price = 0.0;
+		this.category = category;
 	}
 	
 	//------------------------getters start here----------------------------------------------------
@@ -55,6 +63,10 @@ public class Book {
 	
 	public double getPrice() {
 		return price;
+	}
+
+	public Category getCategory() {
+		return category;
 	}
 	//-------------------------------getters end here---------------------------------------
 	
@@ -79,6 +91,10 @@ public class Book {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	//-------------------------------------setters end here--------------------------------------------
 	
 	@Override
@@ -89,6 +105,7 @@ public class Book {
 				", year=" + year +
 				", isbn='" + isbn + '\'' +
 				", price=" + price +
+				", category=" + category +
 				'}';
 	}
 }
