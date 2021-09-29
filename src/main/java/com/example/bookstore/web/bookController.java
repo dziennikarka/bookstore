@@ -2,6 +2,7 @@ package com.example.bookstore.web;
 
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
+import com.example.bookstore.domain.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,9 @@ public class bookController {
 
 	@Autowired
 	private BookRepository repository;
+
+	@Autowired
+	private CategoryRepository categoryRepo;
 
 	@RequestMapping(value="/index", method= RequestMethod.GET)
 	public String getBook(){
@@ -36,6 +40,7 @@ public class bookController {
 	@RequestMapping(value="/addbook", method = RequestMethod.GET)
 	public String addBook(Model model){
 		model.addAttribute("book",new Book());
+		model.addAttribute("categories",categoryRepo.findAll());
 		return "addbook";
 	}
 
