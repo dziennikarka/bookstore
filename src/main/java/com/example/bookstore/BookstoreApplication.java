@@ -4,6 +4,8 @@ import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 import com.example.bookstore.domain.Category;
 import com.example.bookstore.domain.CategoryRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class BookstoreApplication {
+	private static final Logger log = LoggerFactory.getLogger(BookstoreApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookstoreApplication.class, args);
@@ -19,6 +22,7 @@ public class BookstoreApplication {
 	@Bean
 	public CommandLineRunner demo(CategoryRepository repository, BookRepository repo){
 		return(args) -> {
+			log.info("save a couple of books");
 			Category first = new Category("scifi");
 			Category second = new Category ("novel");
 			Category third = new Category ("children books");
@@ -32,6 +36,11 @@ public class BookstoreApplication {
 
 			repo.save(firstBook);
 			repo.save(secondBook);
+
+			log.info("fetch all books");
+			for (Book book : repo.findAll()) {
+				log.info(book.toString());
+			}
 		};
 	}
 
