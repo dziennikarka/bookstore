@@ -6,9 +6,12 @@ import com.example.bookstore.domain.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
+@CrossOrigin
 @Controller
 public class CategoryController {
     @Autowired
@@ -33,4 +36,24 @@ public class CategoryController {
 		repo.save(category);
 		return "redirect:/categorylist";
 	}
+
+	//RESTful service to get all departments
+    @RequestMapping(value="/categories", method = RequestMethod.GET)
+    public @ResponseBody
+	List<Category> getCategoriesRest() {
+        return (List<Category>) repo.findAll();
+    }
+
+	//RESTful service to get category by id
+    @RequestMapping(value="/categories/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+	Optional<Category> findCategoryRest(@PathVariable("id") Long cId){
+    	return repo.findById(cId);
+    }
+
+    // RESTful service to save new category
+    @RequestMapping(value="/categories", method = RequestMethod.POST)
+    public @ResponseBody Category saveCategoryRest(@RequestBody Category category) {
+    	return repo.save(category);
+    }
 }

@@ -6,10 +6,12 @@ import com.example.bookstore.domain.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
+@CrossOrigin
 @Controller
 public class bookController {
 
@@ -29,6 +31,26 @@ public class bookController {
 		model.addAttribute("books", repository.findAll());
 		return "booklist";
 	}
+
+	// RESTful service to get all books
+    @RequestMapping(value="/books", method = RequestMethod.GET)
+    public @ResponseBody
+	List<Book> bookListRest() {
+        return (List<Book>) repository.findAll();
+    }
+
+	// RESTful service to get book by isbn
+    @RequestMapping(value="/books/{isbn}", method = RequestMethod.GET)
+    public @ResponseBody
+	Optional<Book> findBookRest(@PathVariable("isbn") String bookIsbn) {
+    	return repository.findById(bookIsbn);
+    }
+
+    // RESTful service to save new book
+    @RequestMapping(value="/books", method = RequestMethod.POST)
+    public @ResponseBody Book saveBookRest(@RequestBody Book book) {
+    	return repository.save(book);
+    }
 
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") String isbn, Model model){

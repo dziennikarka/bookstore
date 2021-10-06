@@ -1,5 +1,7 @@
 package com.example.bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ public class Category {
     private Long categoryId;
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    //@JsonIgnore
+	@JsonIgnoreProperties("category")
     private List<Book> books;
 
     public Category() {
