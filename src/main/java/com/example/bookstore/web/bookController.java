@@ -26,6 +26,12 @@ public class bookController {
 		return "books";
 	}
 
+	//login page controller
+	@RequestMapping(value="/login")
+    public String login() {
+        return "login";
+    }
+
 	@RequestMapping(value="/booklist", method=RequestMethod.GET)
 	public String getBookList(Model model){
 		model.addAttribute("books", repository.findAll());
