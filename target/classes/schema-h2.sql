@@ -1,3 +1,4 @@
+DROP TABLE User;
 DROP TABLE Book;
 DROP TABLE Category;
 
@@ -13,6 +14,14 @@ CREATE TABLE Book (
   year        INTEGER NOT NULL,
   price       FLOAT NOT NULL,
   category_id  BIGINT NOT NULL REFERENCES Category(category_id) );
+
+CREATE TABLE User(
+ id    BIGINT PRIMARY KEY,
+ username  VARCHAR(255) NOT NULL,
+ password   VARCHAR(255) NOT NULL,
+ email      VARCHAR(255) NOT NULL,
+ role       VARCHAR(255) NOT NULL
+);
 
 
 DROP SEQUENCE HIBERNATE_SEQUENCE;

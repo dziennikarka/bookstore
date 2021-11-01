@@ -30,7 +30,7 @@ public class Category {
         this.books = new ArrayList<>();
     }
 
-    public Long getId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
@@ -42,7 +42,7 @@ public class Category {
         return books;
     }
 
-    public void setId(Long id) {
+    public void setCategoryId(Long id) {
         this.categoryId = id;
     }
 

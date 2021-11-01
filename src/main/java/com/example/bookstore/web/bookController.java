@@ -1,9 +1,15 @@
 package com.example.bookstore.web;
 
+import com.example.bookstore.BookstoreApplication;
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 import com.example.bookstore.domain.CategoryRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +20,7 @@ import java.util.Optional;
 @CrossOrigin
 @Controller
 public class bookController {
+	private static final Logger log = LoggerFactory.getLogger(bookController.class);
 
 	@Autowired
 	private BookRepository repository;
@@ -34,6 +41,8 @@ public class bookController {
 
 	@RequestMapping(value="/booklist", method=RequestMethod.GET)
 	public String getBookList(Model model){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		log.info("Roles:{}",authentication.getAuthorities());
 		model.addAttribute("books", repository.findAll());
 		return "booklist";
 	}
@@ -58,6 +67,8 @@ public class bookController {
     	return repository.save(book);
     }
 
+	//Delete book
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") String isbn, Model model){
 		repository.deleteById(isbn);
