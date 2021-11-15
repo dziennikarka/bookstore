@@ -34,7 +34,7 @@ public class bookController {
 	}
 
 	@RequestMapping(value="/", method= RequestMethod.GET)
-	public String getPage(){return "login";}
+	public String getPage(){return "redirect:/login";}
 
 	//login page controller
 	@RequestMapping(value="/login")
