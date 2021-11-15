@@ -28,10 +28,13 @@ public class bookController {
 	@Autowired
 	private CategoryRepository categoryRepo;
 
-	@RequestMapping(value="/", method= RequestMethod.GET)
+	@RequestMapping(value="/index", method= RequestMethod.GET)
 	public String getBook(){
 		return "books";
 	}
+
+	@RequestMapping(value="/", method= RequestMethod.GET)
+	public String getPage(){return "login";}
 
 	//login page controller
 	@RequestMapping(value="/login")
