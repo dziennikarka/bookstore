@@ -28,7 +28,7 @@ public class bookController {
 	@Autowired
 	private CategoryRepository categoryRepo;
 
-	@RequestMapping(value="/index", method= RequestMethod.GET)
+	@RequestMapping(value="/", method= RequestMethod.GET)
 	public String getBook(){
 		return "books";
 	}
