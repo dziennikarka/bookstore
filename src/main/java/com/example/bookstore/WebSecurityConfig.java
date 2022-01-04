@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .csrf().disable()
         .authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
         .and()
-        .authorizeRequests().antMatchers("/signup", "/saveuser", "/save").authenticated()
+        .authorizeRequests().antMatchers("/signup", "/saveuser", "/save", "/savecategory").authenticated()
         .and()
       .formLogin()
           .defaultSuccessUrl("/booklist")
