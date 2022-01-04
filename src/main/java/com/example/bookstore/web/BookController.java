@@ -1,6 +1,5 @@
 package com.example.bookstore.web;
 
-import com.example.bookstore.BookstoreApplication;
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 import com.example.bookstore.domain.CategoryRepository;
@@ -19,8 +18,8 @@ import java.util.Optional;
 
 @CrossOrigin
 @Controller
-public class bookController {
-	private static final Logger log = LoggerFactory.getLogger(bookController.class);
+public class BookController {
+	private static final Logger log = LoggerFactory.getLogger(BookController.class);
 
 	@Autowired
 	private BookRepository repository;
@@ -97,6 +96,7 @@ public class bookController {
 	@RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
 	public String editBook(@PathVariable("id") String isbn, Model model){
 		model.addAttribute("book", repository.findById(isbn));
+		model.addAttribute("categories", categoryRepo.findAll());
 		return "addbook";
 	}
 }
