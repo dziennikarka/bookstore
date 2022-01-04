@@ -31,9 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
         .csrf().disable()
-        .authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
+        .authorizeRequests().antMatchers("/css/**", "/signup", "/saveuser").permitAll() // Enable css when logged out
         .and()
-        .authorizeRequests().antMatchers("/signup", "/saveuser", "/save", "/savecategory").authenticated()
+        .authorizeRequests().antMatchers("/save", "/savecategory").authenticated()
         .and()
       .formLogin()
           .defaultSuccessUrl("/booklist")
